@@ -6,11 +6,62 @@
 	objectVersion = 56;
 	objects = {
 
+/* Begin PBXFileReference section */
+		03C574C22CE2B50D00A78F80 /* nico_neo_pixel_util.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nico_neo_pixel_util.cpp; sourceTree = "<group>"; };
+		03C574C32CE2B50D00A78F80 /* nico_neo_pixel_util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = nico_neo_pixel_util.h; sourceTree = "<group>"; };
+		03C574C42CE2B50D00A78F80 /* nico_neo_pixel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nico_neo_pixel.cpp; sourceTree = "<group>"; };
+		03C574C52CE2B50D00A78F80 /* nico_neo_pixel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = nico_neo_pixel.h; sourceTree = "<group>"; };
+		03C574C62CE2B50D00A78F80 /* nico_proximity.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nico_proximity.cpp; sourceTree = "<group>"; };
+		03C574C72CE2B50D00A78F80 /* nico_proximity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = nico_proximity.h; sourceTree = "<group>"; };
+		03C574C82CE2B50D00A78F80 /* nico_util.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nico_util.cpp; sourceTree = "<group>"; };
+		03C574C92CE2B50D00A78F80 /* nico_util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = nico_util.h; sourceTree = "<group>"; };
+		03C574CB2CE2B51E00A78F80 /* nico_mp3.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nico_mp3.cpp; sourceTree = "<group>"; };
+		03C574CC2CE2B51E00A78F80 /* nico_mp3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = nico_mp3.h; sourceTree = "<group>"; };
+		03C574CE2CE2B52500A78F80 /* nico_servo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nico_servo.cpp; sourceTree = "<group>"; };
+		03C574CF2CE2B52500A78F80 /* nico_servo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = nico_servo.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
 /* Begin PBXGroup section */
 		03C574A62CE2B44200A78F80 = {
 			isa = PBXGroup;
 			children = (
+				03C574D02CE2B52500A78F80 /* nico_servo */,
+				03C574CD2CE2B51E00A78F80 /* nico_mp3 */,
+				03C574CA2CE2B50D00A78F80 /* nico */,
 			);
+			sourceTree = "<group>";
+		};
+		03C574CA2CE2B50D00A78F80 /* nico */ = {
+			isa = PBXGroup;
+			children = (
+				03C574C22CE2B50D00A78F80 /* nico_neo_pixel_util.cpp */,
+				03C574C32CE2B50D00A78F80 /* nico_neo_pixel_util.h */,
+				03C574C42CE2B50D00A78F80 /* nico_neo_pixel.cpp */,
+				03C574C52CE2B50D00A78F80 /* nico_neo_pixel.h */,
+				03C574C62CE2B50D00A78F80 /* nico_proximity.cpp */,
+				03C574C72CE2B50D00A78F80 /* nico_proximity.h */,
+				03C574C82CE2B50D00A78F80 /* nico_util.cpp */,
+				03C574C92CE2B50D00A78F80 /* nico_util.h */,
+			);
+			path = nico;
+			sourceTree = "<group>";
+		};
+		03C574CD2CE2B51E00A78F80 /* nico_mp3 */ = {
+			isa = PBXGroup;
+			children = (
+				03C574CB2CE2B51E00A78F80 /* nico_mp3.cpp */,
+				03C574CC2CE2B51E00A78F80 /* nico_mp3.h */,
+			);
+			path = nico_mp3;
+			sourceTree = "<group>";
+		};
+		03C574D02CE2B52500A78F80 /* nico_servo */ = {
+			isa = PBXGroup;
+			children = (
+				03C574CE2CE2B52500A78F80 /* nico_servo.cpp */,
+				03C574CF2CE2B52500A78F80 /* nico_servo.h */,
+			);
+			path = nico_servo;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
