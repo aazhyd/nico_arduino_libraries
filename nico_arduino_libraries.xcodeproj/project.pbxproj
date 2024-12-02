@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		037E9E3C2CFD4824002ACF7C /* README */ = {isa = PBXFileReference; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		03C574C22CE2B50D00A78F80 /* nico_neo_pixel_util.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nico_neo_pixel_util.cpp; sourceTree = "<group>"; };
 		03C574C32CE2B50D00A78F80 /* nico_neo_pixel_util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = nico_neo_pixel_util.h; sourceTree = "<group>"; };
 		03C574C42CE2B50D00A78F80 /* nico_neo_pixel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nico_neo_pixel.cpp; sourceTree = "<group>"; };
@@ -26,6 +27,7 @@
 		03C574A62CE2B44200A78F80 = {
 			isa = PBXGroup;
 			children = (
+				037E9E3C2CFD4824002ACF7C /* README */,
 				03C574D02CE2B52500A78F80 /* nico_servo */,
 				03C574CD2CE2B51E00A78F80 /* nico_mp3 */,
 				03C574CA2CE2B50D00A78F80 /* nico */,

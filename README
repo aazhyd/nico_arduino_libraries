@@ -1,1 +1,9 @@
-test
+Utility classes for Arduino:
+
+1) Adafruit NeoPixel arrays.
+2) Adafruit 8-channel servo FeatherWing.
+3) Adafruit 16-GPIO Expander PCF8575.
+4) Sharp infrared proximity sensor.
+5) HSCR04 ultrasound proximity sensor.
+6) Sparkfun MP3 shield.
+4) Console utility class for easy printing to terminal.
