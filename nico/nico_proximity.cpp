@@ -25,8 +25,7 @@
 #include "nico_proximity.h"
 
 //-----------------------------------------------------------------------------
-SharpProximityDetector::SharpProximityDetector(SharpIR::sensorCode code, unsigned int pin, unsigned int minDist, unsigned int maxDist,
-                                               DebugMode debugMode)
+SharpProximityDetector::SharpProximityDetector(SharpIR::sensorCode code, unsigned int pin, unsigned int minDist, unsigned int maxDist, DebugMode debugMode)
 : Base(debugMode),
   pin_(pin),
   minDist_(minDist),

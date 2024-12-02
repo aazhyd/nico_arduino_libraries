@@ -34,8 +34,7 @@
 // and only the 3 measurements closest to the mean are used
 class SharpProximityDetector : public Base {
   public:
-    SharpProximityDetector(SharpIR::sensorCode code, unsigned int pin, unsigned int minDist, unsigned int maxDist,
-                           DebugMode debugMode = DebugMode::None);
+    SharpProximityDetector(SharpIR::sensorCode code, unsigned int pin, unsigned int minDist, unsigned int maxDist, DebugMode debugMode = DebugMode::None);
 
     void init();
 
@@ -65,13 +64,12 @@ class HCSR04 : public Base {
     HCSR04(unsigned int triggerPin, unsigned int echoPin, DebugMode debugMode = DebugMode::None);
     
     void init();
-    
     unsigned int getDistance(); // cm
     
   private:
     const unsigned int triggerPin_;
     const unsigned int echoPin_;
-    BeatKeeper beatKeeper_{60};
+    BeatKeeper beatKeeper_{100};
     unsigned int dist_ = 0;
 };
 

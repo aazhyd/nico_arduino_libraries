@@ -67,6 +67,26 @@ size_t BeatKeeper::getNumBeats()
 }
 
 //-----------------------------------------------------------------------------
+double TimeAveragedValue::get() const
+{
+  return val_;
+}
+
+void TimeAveragedValue::add(double val, unsigned int halfLife)
+{
+  if (halfLife == 0) {
+    val_ = val;
+    return;
+  }
+  
+  const unsigned int duration = millis() - setTime_;
+  const double factor = exp(-0.693 * duration / halfLife);
+  //Console::instance_ << duration << "/" << halfLife << " " << factor << "\n";
+  val_ = factor * val_ + (1 - factor) * val;
+  setTime_ = millis();
+}
+
+//-----------------------------------------------------------------------------
 void Console::init()
 {
   Serial.begin(115200);

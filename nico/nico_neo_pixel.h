@@ -33,64 +33,35 @@
 // Individual NeoPixel: RGB
 
 //-----------------------------------------------------------------------------
-enum Direction { CW, CCW };
-
-//-----------------------------------------------------------------------------
-class NeoPixelBaseArray : public Base {
+class NeoPixelRawArray : public Base {
   public:
-    NeoPixelBaseArray(size_t numPixels, unsigned int pin, unsigned int type, DebugMode debugMode);
+    NeoPixelRawArray(size_t size, unsigned int pin, unsigned int type, DebugMode debugMode);
 
-    size_t getNumPixels() const { return pixels_.numPixels(); }
+    size_t size() const { return pixels_.numPixels(); }
 
     void init();
     virtual void clear();
-    virtual void update();
-
-    void addPattern(Pattern* pattern);
-
-  protected:
     void set(size_t index, const Color&);
     void show();
 
   private:
     Adafruit_NeoPixel pixels_;
-    Array<Pattern*, 2> patterns_;
 };
 
 //-----------------------------------------------------------------------------
-class NeoPixelArray : public NeoPixelBaseArray {
+class NeoPixelBaseArray : public Base {
   public:
-    struct SnakeSetup {
-      Color color_;
-      size_t offset_;
-      Direction dir_;
-      size_t length_;
-      double fadeFactor_;
-      unsigned int duration_; // ms
-    };
-
-    struct PulseSetup {
-      Color color_;
-      unsigned int duration_; // ms
-    };
-
-    struct RandomSetup {
-      Color color_;
-      Color backgroundColor_;
-      size_t count_;
-      unsigned int duration_; // ms
-    };
-
-    NeoPixelArray(size_t numPixels, unsigned int pin, unsigned int type, DebugMode debugMode);
+    NeoPixelBaseArray(NeoPixelRawArray& array, size_t offset, size_t size, DebugMode debugMode);
 
     bool empty() const;
 
-    virtual void clear();
-    virtual void update();
+    void clear();
+    void update();
 
     void add(const SnakeSetup& setup);
     void add(const PulseSetup& setup);
     void add(const RandomSetup& setup);
+    void set(size_t i, const Color& color);
 
   private:
     struct SnakeData {
@@ -112,7 +83,9 @@ class NeoPixelArray : public NeoPixelBaseArray {
       size_t index_ = 0;
     };
 
-    Adafruit_NeoPixel pixels_;
+    NeoPixelRawArray& array_;
+    const size_t offset_;
+    const size_t size_;
     Array<SnakeData, 4> snakeDataVector_;
     Array<PulseData, 1> pulseDataVector_;
     Array<RandomData, 1> randomDataVector_;
@@ -128,11 +101,42 @@ class NeoPixelArray : public NeoPixelBaseArray {
 };
 
 //-----------------------------------------------------------------------------
-class NeoPixel : public NeoPixelBaseArray {
+class NeoPixelArray : public NeoPixelRawArray {
+  public:
+    NeoPixelArray(size_t numPixels, unsigned int pin, unsigned int type, DebugMode debugMode);
+    
+    void add(const SnakeSetup& setup);
+    void add(const PulseSetup& setup);
+    void add(const RandomSetup& setup);
+    
+    virtual void clear();
+    void update();
+
+  private:
+    NeoPixelBaseArray array_;
+};
+
+//-----------------------------------------------------------------------------
+class NeoPixel : public NeoPixelRawArray {
   public:
     NeoPixel(unsigned int pin, unsigned int type, DebugMode debugMode);
 
     void setColor(const Color& color);
+    void addPattern(Pattern* pattern);
+    void clearPatterns();
+    void update();
+
+  private:
+    Array<Pattern*, 2> patterns_;
+};
+
+//-----------------------------------------------------------------------------
+class BoardPixel : public NeoPixel {
+  public:
+    BoardPixel();
+    
+  private:
+    BlinkPattern pattern_;
 };
 
 #endif

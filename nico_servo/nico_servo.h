@@ -34,7 +34,7 @@ enum class ServoType { SG92R, MG90S };
 struct ServoData {
     unsigned int usMin_; // microseconds
     unsigned int usMax_; // microseconds
-    unsigned int maxAngle_;
+    unsigned int maxAngle_; // degrees
 };
 
 //-----------------------------------------------------------------------------
@@ -42,9 +42,9 @@ class ServoDriver : public Base {
   public:
     static const size_t MAX_COUNT = 8;
 
-    explicit ServoDriver(ServoType type, DebugMode debugMode);
+    explicit ServoDriver(ServoType type, DebugMode debugMode, uint8_t address = 0x40, TwoWire& ic2 = Wire);
 
-    void setup(size_t index, double beginAngle, double endAngle);
+    void setup(size_t index, double beginAngle, double endAngle); // degrees
     void init();
 
     bool enabled(size_t index) const { return dataVector_[index].enabled_; }
@@ -78,16 +78,16 @@ class ServoManager : public Base {
   public:
     enum Action { NoAction, MoveToBegin, MoveToEnd };
 
-    explicit ServoManager(ServoType type, DebugMode debugMode);
+    explicit ServoManager(ServoType type, DebugMode debugMode, uint8_t address = 0x40, TwoWire& ic2 = Wire);
 
     struct Data {
       Action action_ = NoAction;
-      unsigned int duration_; // ms to go from min to max
-      unsigned long startTime_; // ms
+      unsigned int duration_ = 0; // ms to go from min to max
+      unsigned long offset_ = 0; // ms
     };
 
-    void setup(size_t index, double beginAngle, double endAngle);
-    void set(size_t index, unsigned int duration, unsigned int startTime);
+    void setup(size_t index, double beginAngle, double endAngle); // degrees
+    void set(size_t index, unsigned int duration, unsigned int offset); // ms
     void set(size_t index, Action action);
 
     void init();

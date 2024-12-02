@@ -56,6 +56,17 @@ class BeatKeeper {
 };
 
 //-----------------------------------------------------------------------------
+class TimeAveragedValue {
+  public:
+    double get() const;
+    void add(double val, unsigned int halfLife);
+  
+  private:
+    unsigned int setTime_ = 0;
+    double val_ = 0.0;
+};
+
+//-----------------------------------------------------------------------------
 class Console {
   public:
     enum Special { Time };

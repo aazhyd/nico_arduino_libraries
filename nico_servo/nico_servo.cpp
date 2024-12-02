@@ -36,10 +36,10 @@ const ServoData SERVO_DATA[2] {
 };
 
 //-----------------------------------------------------------------------------
-ServoDriver::ServoDriver(ServoType type, DebugMode debugMode)
+ServoDriver::ServoDriver(ServoType type, DebugMode debugMode, uint8_t address, TwoWire& i2c)
 : Base(debugMode),
   data_(SERVO_DATA[(size_t)type]),
-  driver_(0x40) // I2C address
+  driver_(address, i2c)
 {
 }
 
@@ -143,9 +143,9 @@ void ServoDriver::moveAllToEnd()
 }
 
 //-----------------------------------------------------------------------------
-ServoManager::ServoManager(ServoType type, DebugMode debugMode)
+ServoManager::ServoManager(ServoType type, DebugMode debugMode, uint8_t address, TwoWire& i2c)
 : Base(debugMode),
-  driver_(type, debugMode)
+  driver_(type, debugMode, address, i2c)
 {
 }
 
@@ -159,11 +159,13 @@ void ServoManager::init()
   driver_.init();
 }
 
-void ServoManager::set(size_t index, unsigned int duration, unsigned int startTime)
+void ServoManager::set(size_t index, unsigned int duration, unsigned int offset)
 {
   dataVector_[index].action_ = NoAction;
   dataVector_[index].duration_ = duration;
-  dataVector_[index].startTime_ = millis() + startTime;
+  if (duration != 0) {
+    dataVector_[index].offset_ = millis() + offset % (2 * duration);
+  }
 }
 
 void ServoManager::set(size_t index, Action action)
@@ -198,21 +200,19 @@ void ServoManager::update()
         break;
     }
 
-    if (dataVector_[i].duration_ == 0) {
+    const unsigned int duration = dataVector_[i].duration_;
+    if (duration == 0) {
       continue;
     }
-
-    const unsigned long startTime = dataVector_[i].startTime_;
-    if (time <= startTime) {
-      continue;
-    }
-
+    
     const double endAngle = driver_.endAngle(i);
     const double beginAngle = driver_.beginAngle(i);
-    const double angleRange = (endAngle - beginAngle);
-    const double deltaAnglePerMs = angleRange / dataVector_[i].duration_;
-    const unsigned long duration = (time - startTime);
-    double deltaAngle = deltaAnglePerMs * duration;
+    const double angleRange = endAngle - beginAngle;
+    const double deltaAnglePerMs = angleRange / duration;
+    
+    const unsigned long offset = dataVector_[i].offset_;
+    const unsigned long d = (time < offset) ? 2 * duration - (offset - time) : time - offset;
+    double deltaAngle = deltaAnglePerMs * d;
 //    Console::instance_ << "angleRange=" << angleRange << " deltaAnglePerMs=" << deltaAnglePerMs
 //      << " duration=" << duration << " deltaAngle=" << deltaAngle << "\n";
     deltaAngle = std::fmod(deltaAngle, 2.0 * angleRange);

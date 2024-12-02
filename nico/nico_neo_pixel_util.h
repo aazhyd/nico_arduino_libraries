@@ -28,10 +28,15 @@
 #include "nico_util.h"
 
 //-----------------------------------------------------------------------------
+enum Direction { CW, CCW };
+
+//-----------------------------------------------------------------------------
 struct Color {
   Color() {}
   Color(uint8_t r, uint8_t g, uint8_t b, uint8_t w = 0) : r_(r), g_(g), b_(b), w_(w) {}
   Color(const Color& color, double gamma);
+    
+  static const Color black_;
 
   void add(const Color& color, double gamma);
 
@@ -89,6 +94,28 @@ class PulsePattern : public Pattern {
     const double minGamma_;
     BeatKeeper beatKeeper_;
     size_t count_ = 0;
+};
+
+//-----------------------------------------------------------------------------
+struct SnakeSetup {
+  Color color_;
+  size_t offset_;
+  Direction dir_;
+  size_t length_;
+  double fadeFactor_;
+  unsigned int duration_; // ms
+};
+
+struct PulseSetup {
+  Color color_;
+  unsigned int duration_; // ms
+};
+
+struct RandomSetup {
+  Color color_;
+  Color backgroundColor_;
+  size_t count_;
+  unsigned int duration_; // ms
 };
 
 #endif
